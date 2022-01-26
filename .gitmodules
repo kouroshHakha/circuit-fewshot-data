@@ -1,0 +1,9 @@
+[submodule "bb_envs"]
+	path = bb_envs
+	url = https://github.com/kouroshHakha/bb_envs.git
+[submodule "blackbox_eval_engine"]
+	path = blackbox_eval_engine
+	url = https://github.com/kouroshHakha/blackbox_eval_engine.git
+[submodule "utils"]
+	path = utils
+	url = https://github.com/kouroshHakha/MLutils.git
