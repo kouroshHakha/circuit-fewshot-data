@@ -18,7 +18,7 @@ You should now have three submodules (`bb_envs`, `blackbox_eval_engine`, and `ut
 # NGSpice installation (for circuit simulations)
 NGspice 2.7 needs to be installed separately, via this [installation link](https://sourceforge.net/projects/ngspice/files/ng-spice-rework/old-releases/27/). Page 607 of the pdf manual on the website has instructions on how to install. Note that you might need to remove some of the flags to get it to install correctly for your machine.
 
-We have also provided a [docker file](link) for setting up the dependencies in a separate isolated environment. 
+We have also provided a [docker file](https://github.com/kouroshHakha/circuit-fewshot/blob/master/docker/DockerFile) for setting up the dependencies in a separate isolated environment. 
 
 
 
@@ -27,7 +27,7 @@ We have also provided a [docker file](link) for setting up the dependencies in a
 (Don't worry about it)
 - `bb_envs` is the submodule instantiating different black boxes (e.g. ngspice circuit env instances, 
 or simple optimization benchmark functions)
-- `utils`: This is a personal utils submodule re-using most common ML/python convenience methods. 
+- `utils`: This is a utils submodule re-using most common ML/python convenience methods. 
 - `graph_data_gen`: This folder includes the scripts / class implementations for creating the graph datasets used in the paper (and more).
 
 # Data generation instruction
@@ -39,7 +39,7 @@ This part requires a bit of domain knowledge about circuits and how the simulati
 Inheritance from `NgspiceWrapper` and `NgspiceFlowManager` should take care of the majority of the engineering required for calling ngspice processes with the correct parameters. 
 Example implementations of these files are included in the `bb_envs` submodule for a couple of circuits includeing `weathstoneb`, `two_stage_graph`, and `two_stage_biased_pmos` which re-uses implementations from `two_stage_graph`.
 
-Once these components are available and tested (via running `python bb_env/run_scripts/test_random_sampling.py` for example) we can go ahead and create a config file for data generation procedure. This config file will describe how we should sweep the parameters of the circuit. For example you can specify that two parameters should always be matched to each other or other constraints in form of a random decision tree (see examples in [graph_data_gen/configs/biased_pmos/conf.py]()).
+Once these components are available and tested (via running `python bb_env/run_scripts/test_random_sampling.py` for example) we can go ahead and create a config file for data generation procedure. This config file will describe how we should sweep the parameters of the circuit. For example you can specify that two parameters should always be matched to each other or other constraints in form of a random decision tree (see examples in [graph_data_gen/configs/biased_pmos/conf.py](https://github.com/kouroshHakha/circuit-fewshot/blob/master/graph_data_gen/configs/biased_pmos/conf.py)).
 
 ## Raw data generation
 To generate the raw data (simulation hdf5 files) by randomly sweeping the parameters defined in the config file we do:
