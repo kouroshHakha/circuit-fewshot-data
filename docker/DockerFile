@@ -1,5 +1,14 @@
 FROM nvidia/cuda:10.2-cudnn8-runtime-ubuntu18.04
 
+# install miniconda (comes with python 3.7 default)
+ARG CONDA_VERSION
+ARG CONDA_URL=https://repo.anaconda.com/miniconda/Miniconda3-${CONDA_VERSION}-Linux-x86_64.sh
+RUN cd /stage && curl -fSsL --insecure ${CONDA_URL} -o install-conda.sh &&\
+    /bin/bash ./install-conda.sh -b -p /opt/conda &&\
+    /opt/conda/bin/conda clean -ya
+ENV PATH=/opt/conda/bin:${PATH}
+
+
 # Add arch list to environment variable
 ARG TORCH_CUDA_ARCH_LIST="Kepler;Kepler+Tesla;Maxwell;Maxwell+Tegra;Pascal;Volta;Turing"
 ENV TORCH_CUDA_ARCH_LIST="${TORCH_CUDA_ARCH_LIST}"
