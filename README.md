@@ -15,6 +15,11 @@ git submodule update --init --recursive
 
 You should now have three submodules (`bb_envs`, `blackbox_eval_engine`, and `utils`) that are required for running ngspice simulations from python environments.
 
+```
+pip install -r requirements.txt
+source .bashrc
+```
+
 # NGSpice installation (for circuit simulations)
 NGspice 2.7 needs to be installed separately, via this [installation link](https://sourceforge.net/projects/ngspice/files/ng-spice-rework/old-releases/27/). Page 607 of the pdf manual on the website has instructions on how to install. Note that you might need to remove some of the flags to get it to install correctly for your machine.
 

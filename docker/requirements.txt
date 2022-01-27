@@ -3,4 +3,4 @@ ruamel.yaml
 IPython
 jinja2
 h5py
-hyperopt
+hyperopt==2.5.0
