@@ -44,7 +44,7 @@ This part requires a bit of domain knowledge about circuits and how the simulati
 Inheritance from `NgspiceWrapper` and `NgspiceFlowManager` should take care of the majority of the engineering required for calling ngspice processes with the correct parameters. 
 Example implementations of these files are included in the `bb_envs` submodule for a couple of circuits includeing `weathstoneb`, `two_stage_graph`, and `two_stage_biased_pmos` which re-uses implementations from `two_stage_graph`.
 
-Once these components are available and tested (via running `python bb_env/run_scripts/test_random_sampling.py` for example) we can go ahead and create a config file for data generation procedure. This config file will describe how we should sweep the parameters of the circuit. For example you can specify that two parameters should always be matched to each other or other constraints in form of a random decision tree (see examples in [graph_data_gen/configs/biased_pmos/conf.py](https://github.com/kouroshHakha/circuit-fewshot/blob/master/graph_data_gen/configs/biased_pmos/conf.py)).
+Once these components are available and tested (via running `python bb_env/run_scripts/test_random_sampling.py` for example) we can go ahead and create a config file for data generation procedure. This config file will describe how we should randomly sample the parameters of the circuit. For example you can specify that two parameters should always be matched to each other or other constraints in form of a random decision tree (see examples in [graph_data_gen/configs/biased_pmos/conf.py](https://github.com/kouroshHakha/circuit-fewshot/blob/master/graph_data_gen/configs/biased_pmos/conf.py)).
 
 ## Raw data generation
 To generate the raw data (simulation hdf5 files) by randomly sweeping the parameters defined in the config file we do:
@@ -61,7 +61,7 @@ NGSPICE_TMP_DIR=/store/nosnap/results/ngspice python graph_data_gen/gen_data.py 
 This is the most time-consuming part of the data generation as it requires generating the netlists and calling the simulator on thos netlists and post-processing the results in python. 
 
 ## Converting the raw data to a raw graph data 
-This part includes running a script that describes the graph of that particular circuit and clearly defines nodes and edges along with the simulation data. This is the most error-prone part of the data generation process. Make sure all nodes are specified correctly and the results are getting aggregated without any silent issues. This will bite you later during machine learning training.
+This part includes running a script that describes the graph of that particular circuit and clearly defines nodes and edges along with the simulation data. This is the most error-prone part of the data generation process. Make sure all nodes are specified correctly and the results are getting aggregated without any silent bugs. This will bite you later during machine learning training, so think of comprehensive unit tests for the functions you write for your new circuits. Ideally there should be an API that reads the simulation netlists and parses them into usable python graphs so that we do not have to do this step manually.
 
 We have created three separate instantiations of this part. For Weathstone bridge and other resistor network circuits we consider a separate, more ad-hoc, script (i.e. `create_resistive_test_networks.py`), and for transistor-based circuits we call a different script (i.e. `collect_train_json.py`):
 
@@ -86,4 +86,4 @@ The `--biased_pmos` flag informs the script to change the graph topology.
 
 You can simply run the `create_resistive_test_networks.py` by commenting out a few lines. Please refer to the script for more information.
 
-The resulting raw folder is the raw data that is required by the custom `pytorch_geometric` datasets (located in the [algorithm repository](link)). We have also uploaded the datasets to cloud for easier accessability.
+The resulting raw folder is the raw data that is required by the custom `pytorch_geometric` datasets (located in the [algorithm repository](https://github.com/kouroshHakha/circuit-fewshot-code). We have also uploaded the datasets to cloud for easier accessability. For more information on this checkout the [algorithm repository](https://github.com/kouroshHakha/circuit-fewshot-code). 
